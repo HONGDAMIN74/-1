@@ -1,4 +1,4 @@
-#분류 결과 + 이미지 + 텍스트와 함께 분류 결과에 따라 다른 출력 보여주기
+rhk#분류 결과 + 이미지 + 텍스트와 함께 분류 결과에 따라 다른 출력 보여주기
 #파일 이름 streamlit_app.py
 import streamlit as st
 from fastai.vision.all import *
@@ -20,11 +20,11 @@ def load_model_from_drive(file_id):
     return learner
 
 def display_left_content(image, prediction, probs, labels):
-    st.write("### 왼쪽: 기존 출력 결과")
+    st.write("### 왼쪽: 업로드된 이미지")
     if image is not None:
         st.image(image, caption="업로드된 이미지", use_column_width=True)
-    st.write(f"예측된 클래스: {prediction}")
-    st.markdown("<h4>클래스별 확률:</h4>", unsafe_allow_html=True)
+    st.write(f"예측된 도서관: {prediction}")
+    st.markdown("<h4>도서관별 확률:</h4>", unsafe_allow_html=True)
     for label, prob in zip(labels, probs):
         st.markdown(f"""
             <div style="background-color: #f0f0f0; border-radius: 5px; padding: 5px; margin: 5px 0;">
@@ -37,22 +37,22 @@ def display_left_content(image, prediction, probs, labels):
         """, unsafe_allow_html=True)
 
 def display_right_content(prediction, data):
-    st.write("### 오른쪽: 동적 분류 결과")
+    st.write("### 오른쪽: 결과와 관련된 정보")
     cols = st.columns(3)
 
-    # 1st Row - Images
+    # 1rd Row - Text
     for i in range(3):
         with cols[i]:
-            st.image(data['images'][i], caption=f"이미지: {prediction}", use_column_width=True)
+            st.write(data['texts'][i])
     # 2nd Row - YouTube Videos
     for i in range(3):
         with cols[i]:
             st.video(data['videos'][i])
             st.caption(f"유튜브: {prediction}")
-    # 3rd Row - Text
+    # 3st Row - Images
     for i in range(3):
         with cols[i]:
-            st.write(data['texts'][i])
+            st.image(data['images'][i], caption=f"이미지: {prediction}", use_column_width=True)
 
 # 모델 로드
 st.write("모델을 로드 중입니다. 잠시만 기다려주세요...")
@@ -78,53 +78,87 @@ st.markdown("""
 content_data = {
     labels[0]: {
         'images': [
-            "https://via.placeholder.com/300?text=Label1_Image1",
-            "https://via.placeholder.com/300?text=Label1_Image2",
-            "https://via.placeholder.com/300?text=Label1_Image3"
+            "https://ibb.co/54fdm1t",
+            "https://ibb.co/WfPQTZ6",
+            "https://ibb.co/4j3wTMN"
         ],
         'videos': [
-            "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-            "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-            "https://www.youtube.com/watch?v=3JZ_D3ELwOQ"
+            "https://youtu.be/zzJDH5NmwN4",
+            "https://youtu.be/YvG6c74cJLQ?feature=shared",
+            "https://youtu.be/z519YgZXMco?feature=shared"
         ],
         'texts': [
-            "Label 1 관련 첫 번째 텍스트 내용입니다.",
-            "Label 1 관련 두 번째 텍스트 내용입니다.",
-            "Label 1 관련 세 번째 텍스트 내용입니다."
+            "Label 1 관련 대학교 정보입니다.",
+            "Label 1 관련 대학교 도서관 정보입니다.",
+            "Label 1 관련 대학교 마스코트 정보입니다."
         ]
     },
     labels[1]: {
         'images': [
-            "https://via.placeholder.com/300?text=Label2_Image1",
-            "https://via.placeholder.com/300?text=Label2_Image2",
-            "https://via.placeholder.com/300?text=Label2_Image3"
+            "https://ibb.co/54fdm1t",
+            "https://ibb.co/BGtfCGp",
+            "https://ibb.co/FbShG5w"
         ],
         'videos': [
-            "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-            "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-            "https://www.youtube.com/watch?v=2Vv-BfVoq4g"
+            "https://youtu.be/z_JvHW3-pOs?feature=shared",
+            "https://youtu.be/_xlol4jQFLA?feature=shared",
+            "https://youtu.be/jUSsvQNGaSc?feature=shared"
         ],
         'texts': [
-            "Label 2 관련 첫 번째 텍스트 내용입니다.",
-            "Label 2 관련 두 번째 텍스트 내용입니다.",
-            "Label 2 관련 세 번째 텍스트 내용입니다."
+            "Label 2 관련 대학교 정보입니다.",
+            "Label 2 관련 대학교 도서관 정보입니다.",
+            "Label 2 관련 대학교 마스코트 정보입니다."
         ]
     },
     labels[2]: {
         'images': [
-            "https://via.placeholder.com/300?text=Label3_Image1",
-            "https://via.placeholder.com/300?text=Label3_Image2",
-            "https://via.placeholder.com/300?text=Label3_Image3"
+            "https://ibb.co/ykdX3m7",
+            "https://ibb.co/7Rxzsd5",
+            "https://ibb.co/353XCSn"
         ],
         'videos': [
-            "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-            "https://www.youtube.com/watch?v=2Vv-BfVoq4g",
-            "https://www.youtube.com/watch?v=3JZ_D3ELwOQ"
+            "https://youtu.be/hvtgI7OKYQk?feature=shared",
+            "https://youtu.be/kI_VcznVIPI?feature=shared",
+            "https://youtu.be/rdvOzhalTPs?feature=shared"
         ],
         'texts': [
-            "Label 3 관련 첫 번째 텍스트 내용입니다.",
-            "Label 3 관련 두 번째 텍스트 내용입니다.",
-            "Label 3 관련 세 번째 텍스트 내용입니다."
+            "Label 3 관련 대학교 정보입니다.",
+            "Label 3 관련 대학교 도서관 정보입니다.",
+            "Label 3 관련 대학교 마스코트 정보입니다."
+        ]
+    },
+    labels[0]: {
+        'images': [
+            "https://ibb.co/T0Ky03s",
+            "https://ibb.co/VD0nWGL",
+            "https://ibb.co/RvWHjRs"
+        ],
+        'videos': [
+            "https://youtu.be/nwNSfoqZqOs?feature=shared",
+            "https://youtu.be/pHaG8lXGD7M?feature=shared",
+            "https://youtu.be/F7NvvJtpqOo?feature=shared"
+        ],
+        'texts': [
+            "Label 4 관련 대학교 정보입니다.",
+            "Label 4 관련 대학교 도서관 정보입니다.",
+            "Label 4 관련 대학교 마스코트 정보입니다."
+        ]
+    },
+    labels[0]: {
+        'images': [
+            "https://ibb.co/KKXGR8K",
+            "https://ibb.co/9qdnxDq",
+            "https://ibb.co/kBfNjwr"
+        ],
+        'videos': [
+            "https://youtu.be/8W2eENLTizw?feature=shared",
+            "https://youtu.be/1-sjWRrxWUg?feature=shared",
+            "https://youtu.be/U11y5Xg6V9s?feature=shared"
+        ],
+        'texts': [
+            "Label 5 관련 대학교 정보입니다.",
+            "Label 5 관련 대학교 도서관 정보입니다.",
+            "Label 5 관련 대학교 마스코트 정보입니다."
         ]
     }
 }
