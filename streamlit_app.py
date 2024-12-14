@@ -40,19 +40,19 @@ def display_right_content(prediction, data):
     st.write("### 오른쪽: 결과와 관련된 정보")
     cols = st.columns(3)
 
-    # 1rd Row - Text
+    # 1st Row - Images
     for i in range(3):
         with cols[i]:
-            st.write(data['texts'][i])
+            st.image(data['images'][i], caption=f"이미지: {prediction}", use_column_width=True)
     # 2nd Row - YouTube Videos
     for i in range(3):
         with cols[i]:
             st.video(data['videos'][i])
             st.caption(f"유튜브: {prediction}")
-    # 3st Row - Images
+    # 3rd Row - Text
     for i in range(3):
         with cols[i]:
-            st.image(data['images'][i], caption=f"이미지: {prediction}", use_column_width=True)
+            st.write(data['texts'][i])
 
 # 모델 로드
 st.write("모델을 로드 중입니다. 잠시만 기다려주세요...")
