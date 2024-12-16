@@ -127,7 +127,7 @@ content_data = {
             "Label 3 관련 대학교 마스코트 정보입니다."
         ]
     },
-    labels[0]: {
+    labels[3]: {
         'images': [
             "https://ibb.co/T0Ky03s",
             "https://ibb.co/VD0nWGL",
@@ -144,7 +144,7 @@ content_data = {
             "Label 4 관련 대학교 마스코트 정보입니다."
         ]
     },
-    labels[0]: {
+    labels[4]: {
         'images': [
             "https://ibb.co/KKXGR8K",
             "https://ibb.co/9qdnxDq",
